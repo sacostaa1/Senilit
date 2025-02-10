@@ -43,8 +43,8 @@ El servidor iniciará en: **http://127.0.0.1:8000/**
 
 ### 🔹 **Registro e Inicio de Sesión**
 - Para iniciar sesión, accede a **http://127.0.0.1:8000/**
-- Usuario: UsuarioProfesor
-- Password: UsuarioProfesor
+- Usuario: UsuarioPrueba
+- Password: UsuarioPrueba
 - Para registrarte, contacta con el administrador (no hay registro público habilitado).
 
 ### 🔹 **Calificar un Servicio**
