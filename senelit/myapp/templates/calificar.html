@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calificar Servicio</title>
+</head>
+<body>
+    <h2>Calificar el servicio: {{ servicio.nombre }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="estrellas">Calificación (1-5 estrellas):</label>
+        <select name="estrellas" id="estrellas">
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+        <br><br>
+        <label for="reseña">Reseña (opcional):</label>
+        <textarea name="reseña" id="reseña" maxlength="240"></textarea>
+        <br><br>
+        <button type="submit">Enviar Calificación</button>
+    </form>
+</body>
+</html>
