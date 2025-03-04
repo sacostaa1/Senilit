@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <meta charset="utf-8" />
+      <title>Senilit - Perfil</title>
+  </head>
+  <body>
+    <main>
+
+      <section>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="http://localhost:8000/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://localhost:8000/servicios/">Perfil</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <section>
+        <br>
+        <section>
+          <h2>Bienvenido a tu perfil.</h2>
+          <h3>Ana María Escobar, vendedora.</h3>
+        </section>
+        <br>
+      <h2>Servicios completados</h2>
+
+<br>
+
+
+{% if purchases %}
+    <ul>
+        {% for purchase in purchases %}
+            <li>
+                {{ purchase.user }} compró {{ purchase.service }} - 
+                {% if purchase.rating %} Calificación: {{ purchase.rating }}/5
+                {% else %} Sin calificación
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay servicios completados.</p>
+{% endif %}
+  </section>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+
+
+
