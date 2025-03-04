@@ -1,9 +1,9 @@
 
-##Imagen del menu principal
+# Imagen del menu principal
 
 ![image](https://github.com/user-attachments/assets/7f604846-eb38-4cb4-aac4-5bb1341401d7)
 
-##Imagen al seleccionar una categoria
+# Imagen al seleccionar una categoria
 
 ![image](https://github.com/user-attachments/assets/0e4eaeea-7bf7-4dd8-87af-c7d7d18e5e30)
 
