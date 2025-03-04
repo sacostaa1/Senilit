@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{{ categoria.nombre }}</title>
+</head>
+<body>
+    <h1>Servicios en {{ categoria.nombre }}</h1>
+    <ul>
+        {% for servicio in servicios %}
+            <li>
+                <strong>{{ servicio.nombre }}</strong>: {{ servicio.descripcion }}
+            </li>
+        {% empty %}
+            <p>No hay servicios disponibles en esta categoría.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

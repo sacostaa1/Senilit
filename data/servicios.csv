@@ -1,0 +1,16 @@
+id,nombre,descripcion,categoria_id
+1,Tutorías,Apoyo en asignaturas difíciles,1
+2,Biblioteca,Acceso a libros y espacios de estudio,1
+3,Asesoría Académica,Orientación en planes de estudio,1
+4,Psicología,Atención psicológica gratuita,2
+5,Nutrición,Asesoría nutricional para estudiantes,2
+6,Gimnasio,Acceso a instalaciones deportivas,4
+7,Torneos Universitarios,Competencias deportivas internas,4
+8,Teatro,Clases y presentaciones teatrales,5
+9,Orquesta Universitaria,Participación en ensambles musicales,5
+10,Ferias de Empleo,Conexión con empresas y oportunidades laborales,7
+11,Emprendimiento,Capacitación y apoyo a startups estudiantiles,7
+12,Charlas Tecnológicas,Eventos sobre IA, ciberseguridad y más,6
+13,Club de Programación,Espacio para aprender y practicar código,6
+14,Clínica Universitaria,Atención médica dentro de la universidad,8
+15,Campañas de Salud,Charlas sobre bienestar y prevención,8

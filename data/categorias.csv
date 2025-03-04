@@ -1,0 +1,9 @@
+id,nombre,icono
+1,Académico,icono_academico.png
+2,Bienestar,icono_bienestar.png
+3,Eventos,icono_eventos.png
+4,Deportes,icono_deportes.png
+5,Cultura,icono_cultura.png
+6,Tecnología,icono_tecnologia.png
+7,Emprendimiento,icono_emprendimiento.png
+8,Salud,icono_salud.png

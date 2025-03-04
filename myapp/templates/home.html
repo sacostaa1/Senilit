@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Servicios Universitarios</title>
+</head>
+<body>
+    <h1>Bienvenido a la Plataforma de Servicios</h1>
+    <ul>
+        {% for categoria in categorias %}
+            <li>
+                <a href="{% url 'detalle_categoria' categoria.id %}">{{ categoria.nombre }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
