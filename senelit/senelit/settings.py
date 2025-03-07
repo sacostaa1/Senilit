@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'myapp',
 ]
+
+LOGIN_URL = None
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

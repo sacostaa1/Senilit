@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center><h2>Mis Servicios Favoritos</h2></center>
+<div class="favorites-container">
+    <!-- Datos quemados -->
+    <div class="favorite-card">
+        <h3>Clases de Matemáticas</h3>
+        <p>Profesor experto en cálculo y álgebra. Disponible los fines de semana.</p>
+        <button class="remove-btn">Eliminar</button>
+    </div>
+    
+    <div class="favorite-card">
+        <h3>Reparación de Computadores</h3>
+        <p>Servicio técnico para laptops y PC. Garantía incluida.</p>
+        <button class="remove-btn">Eliminar</button>
+    </div>
+    
+    <div class="favorite-card">
+        <h3>Diseño Gráfico para Estudiantes</h3>
+        <p>Edición de imágenes, creación de logos y diseño de presentaciones.</p>
+        <button class="remove-btn">Eliminar</button>
+    </div>
+</div>
+{% endblock %}
