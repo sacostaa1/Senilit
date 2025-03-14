@@ -57,3 +57,6 @@ Distributed under the MIT License. See [LICENSE](/LICENSE) for more details.
 **Questions or suggestions?**  
 📧 Email us at: [team@senilit.com](mailto:equipo@senilit.com)  
 🐞 Report bugs in [Issues](https://github.com/your-username/senilit/issues)  
+
+**Video of new features**
+📺 https://youtu.be/xpxaGkK96IE
