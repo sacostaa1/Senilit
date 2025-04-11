@@ -1,25 +1,77 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<center><h2>Mis Servicios Favoritos</h2></center>
-<div class="favorites-container">
-    <!-- Datos quemados -->
-    <div class="favorite-card">
-        <h3>Clases de Matemáticas</h3>
-        <p>Profesor experto en cálculo y álgebra. Disponible los fines de semana.</p>
-        <button class="remove-btn">Eliminar</button>
-    </div>
-    
-    <div class="favorite-card">
-        <h3>Reparación de Computadores</h3>
-        <p>Servicio técnico para laptops y PC. Garantía incluida.</p>
-        <button class="remove-btn">Eliminar</button>
-    </div>
-    
-    <div class="favorite-card">
-        <h3>Diseño Gráfico para Estudiantes</h3>
-        <p>Edición de imágenes, creación de logos y diseño de presentaciones.</p>
-        <button class="remove-btn">Eliminar</button>
-    </div>
-</div>
+  <center><h2>Mis Servicios Favoritos</h2></center>
+  <div class="favorites-container">
+    {% for favorite in favorites %}
+      <div class="favorite-card" id="favorite-{{ favorite.id }}">
+
+         <h3>{{ favorite.service.name }}</h3>
+         <p>{{ favorite.service.description }}</p>
+
+         
+         <a href="{% url 'service_detail' service_id=favorite.service.id %}" class="detail-link-btn">
+           Ver Detalles
+         </a>
+
+        
+         <button class="toggle-btn" data-service="{{ favorite.service.id }}">
+           Eliminar de favoritos
+         </button>
+      </div>
+    {% empty %}
+      <p>No tienes servicios favoritos.</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    // Función para obtener la cookie CSRF
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.toggle-btn');
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          const serviceId = this.getAttribute('data-service');
+          const url = "{% url 'toggle_favorite' 0 %}".replace('0', serviceId);
+          const csrftoken = getCookie('csrftoken');
+
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'removed') {
+              // Remueve la tarjeta del DOM
+              const card = this.closest('.favorite-card');
+              card.remove();
+            } else if (data.status === 'added') {
+             
+              this.textContent = 'Eliminar de favoritos';
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+    });
+  </script>
 {% endblock %}

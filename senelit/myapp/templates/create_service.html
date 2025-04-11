@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Crear Servicio</h2>
+
+  <div class="create-service-form-container">
+    <form method="post" class="create-service-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="create-service-btn">Crear Servicio</button>
+    </form>
+    <a href="{% url 'service_list' %}" class="view-services-link">
+      Ver todos los servicios
+    </a>
+  </div>
+{% endblock %}

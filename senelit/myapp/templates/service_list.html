@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load favorite_extras %}
+
+{% block content %}
+  <h2>Servicios Anunciados</h2>
+
+  <div class="service-list">
+    {% for service in services %}
+      <div class="service-card">
+        <a href="{% url 'service_detail' service_id=service.id %}" class="service-link">
+          <h3 class="service-title">{{ service.name }}</h3>
+        </a>
+        <p class="service-hours">{{ service.available_hours }}</p>
+
+        <!-- Icono de favorito -->
+        <span 
+          class="favorite-icon {% if service|is_favorite:request.user %}favorited{% endif %}" 
+          data-service-id="{{ service.id }}"
+          title="Marcar como favorito"
+        >
+          <i class="fa-solid fa-star"></i>
+        </span>
+      </div>
+    {% empty %}
+      <p>No hay servicios disponibles.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Botón para crear un nuevo servicio -->
+  <a href="{% url 'create_service' %}" class="create-service-link">
+    Crear un nuevo servicio
+  </a>
+  
+  <!-- Script para manejar el click en el icono de favorito -->
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const favoriteIcons = document.querySelectorAll('.favorite-icon');
+      favoriteIcons.forEach(function(icon) {
+        icon.addEventListener('click', function() {
+          const serviceId = this.getAttribute('data-service-id');
+          const url = "{% url 'toggle_favorite' 0 %}".replace('0', serviceId);
+          const csrftoken = getCookie('csrftoken');
+
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'added') {
+              this.classList.add('favorited');
+            } else if (data.status === 'removed') {
+              this.classList.remove('favorited');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+    });
+  </script>
+{% endblock %}

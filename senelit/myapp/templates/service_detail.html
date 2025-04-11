@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="service-detail-container">
+    
+    <h2 class="service-detail-title">{{ service.name }}</h2>
+    
+    
+    <p class="service-detail-description">{{ service.description }}</p>
+    
+    <div class="service-detail-info">
+      <p><strong>Horas disponibles:</strong> {{ service.available_hours }}</p>
+      <p><strong>Contacto:</strong> {{ service.contact }}</p>
+      <p><strong>Ubicación:</strong> {{ service.location }}</p>
+    </div>
+    
+
+    <a href="{% url 'service_list' %}" class="back-link">
+      Volver a la lista de servicios
+    </a>
+  </div>
+{% endblock %}

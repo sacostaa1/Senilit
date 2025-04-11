@@ -1,7 +1,11 @@
+
 from django.urls import path
-from .views import favorite_list, toggle_favorite
+from . import views
 
 urlpatterns = [
-    path('favorites/', favorite_list, name='favorite_list'),
-    path('toggle_favorite/<int:service_id>/', toggle_favorite, name='toggle_favorite'),
+    path('service/create/', views.create_service, name='create_service'),
+    path('service/<int:service_id>/', views.service_detail, name='service_detail'),
+    path('services/', views.service_list, name='service_list'),
+    path('toggle-favorite/<int:service_id>/', views.toggle_favorite, name='toggle_favorite'),
+    path('favorites/', views.favorite_list, name='favorite_list'),
 ]
