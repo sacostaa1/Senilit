@@ -3,20 +3,16 @@
 
 {% block content %}
   <div class="service-detail-container">
-    
-    <h2 class="service-detail-title">{{ service.name }}</h2>
-    
-    
-    <p class="service-detail-description">{{ service.description }}</p>
-    
-    <div class="service-detail-info">
-      <p><strong>Horas disponibles:</strong> {{ service.available_hours }}</p>
-      <p><strong>Contacto:</strong> {{ service.contact }}</p>
-      <p><strong>Ubicación:</strong> {{ service.location }}</p>
-    </div>
-    
+    <h2>{{ service.name }}</h2>
+    <p>{{ service.description }}</p>
+    <p><strong>Horas disponibles:</strong> {{ service.available_hours }}</p>
+    <p><strong>Contacto:</strong> {{ service.contact }}</p>
+    <p><strong>Ubicación:</strong> {{ service.location }}</p>
+
+    <!-- Mostrar calificación promedio -->
     <h3>Calificación: {{ service.get_average_rating|default:"No calificado" }}</h3>
 
+    <!-- Formulario para calificar -->
     <form method="POST" action="{% url 'service_detail' service_id=service.id %}">
       {% csrf_token %}
       <label for="rating">Califica este servicio (1-5):</label>
@@ -34,35 +30,51 @@
       Volver a la lista de servicios
     </a>
   </div>
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const ratingForm = document.querySelector('form');
-      
-      ratingForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-  
-        const ratingValue = document.getElementById('rating').value;
-        const serviceId = {{ service.id }};
-        const csrftoken = getCookie('csrftoken');
-  
-        fetch(`/rate_service/${serviceId}/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-          },
-          body: JSON.stringify({ rating: ratingValue })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            alert('Gracias por calificar!');
-          }
-        })
-        .catch(error => console.error('Error:', error));
-      });
-    });
-  </script>
 {% endblock %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ratingForm = document.querySelector('form');
+    
+    ratingForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const ratingValue = document.getElementById('rating').value;
+      const serviceId = {{ service.id }};
+      const csrftoken = getCookie('csrftoken');
+
+      fetch(`/rate_service/${serviceId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({ rating: ratingValue })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('Gracias por calificar!');
+          // Aquí puedes actualizar la calificación mostrada en el detalle
+          document.querySelector('h3').innerText = `Calificación: ${data.rating}`;
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  });
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>

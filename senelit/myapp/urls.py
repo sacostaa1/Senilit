@@ -8,6 +8,6 @@ urlpatterns = [
     path('services/', views.service_list, name='service_list'),
     path('toggle-favorite/<int:service_id>/', views.toggle_favorite, name='toggle_favorite'),
     path('favorites/', views.favorite_list, name='favorite_list'),
-    path('rate_service/<int:service_id>/', views.rate_service, name='rate_service'),
+ 
 
 ]

@@ -39,37 +39,7 @@ def service_list(request):
 
 def service_detail(request, service_id):
     """
-    Muestra el detalle completo de un servicio específico y permite al usuario calificarlo.
-    """
-    service = get_object_or_404(Service, id=service_id)
-
-    if request.method == 'POST':
-        # Obtener el valor de la calificación
-        rating_value = int(request.POST.get('rating', 0))
-
-        # Asegurarse de que la calificación esté entre 1 y 5
-        if 1 <= rating_value <= 5:
-            # Crear o actualizar la calificación
-            rating, created = Rating.objects.get_or_create(
-                service=service,
-                user=request.user,  # No lo tomes en cuenta si no estás gestionando usuarios
-                defaults={'rating': rating_value}
-            )
-
-            if not created:
-                rating.rating = rating_value
-                rating.save()
-
-            return redirect('service_detail', service_id=service.id)
-    
-    return render(request, 'service_detail.html', {'service': service})
-
-
-
-
-def rate_service(request, service_id):
-    """
-    Vista para calificar un servicio.
+    Muestra el detalle completo de un servicio específico y permite calificarlo.
     """
     service = get_object_or_404(Service, id=service_id)
 
@@ -81,17 +51,20 @@ def rate_service(request, service_id):
             # Verificar si el usuario ya ha calificado el servicio
             rating, created = Rating.objects.get_or_create(
                 service=service,
-                user=request.user,
                 defaults={'rating': rating_value}
             )
 
+            # Si ya existe una calificación, actualizarla
             if not created:
                 rating.rating = rating_value
                 rating.save()
 
-            return JsonResponse({'status': 'success', 'rating': rating_value})
+            return redirect('service_detail', service_id=service.id)
 
-    return JsonResponse({'status': 'error'}, status=400)
+    return render(request, 'service_detail.html', {'service': service})
+
+
+
 
 def toggle_favorite(request, service_id):
     """
