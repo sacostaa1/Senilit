@@ -15,9 +15,54 @@
       <p><strong>Ubicación:</strong> {{ service.location }}</p>
     </div>
     
+    <h3>Calificación: {{ service.get_average_rating|default:"No calificado" }}</h3>
+
+    <form method="POST" action="{% url 'service_detail' service_id=service.id %}">
+      {% csrf_token %}
+      <label for="rating">Califica este servicio (1-5):</label>
+      <select name="rating" id="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button type="submit">Calificar</button>
+    </form>
 
     <a href="{% url 'service_list' %}" class="back-link">
       Volver a la lista de servicios
     </a>
   </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ratingForm = document.querySelector('form');
+      
+      ratingForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        const ratingValue = document.getElementById('rating').value;
+        const serviceId = {{ service.id }};
+        const csrftoken = getCookie('csrftoken');
+  
+        fetch(`/rate_service/${serviceId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify({ rating: ratingValue })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            alert('Gracias por calificar!');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+    });
+  </script>
 {% endblock %}
