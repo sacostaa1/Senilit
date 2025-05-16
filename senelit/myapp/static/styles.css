@@ -36,19 +36,24 @@ nav ul {
   gap: 1.5rem;
 }
 
-nav ul li a {
+nav ul li {
   color: #6b7280;
   text-decoration: none;
   font-weight: 500;
   padding: 0.75rem 1.25rem;
   border-radius: 12px;
   transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-nav ul li a:hover {
+nav ul li {
   background-color: #dfe6ee;
   color: #252b42;
 }
+
 
 /* Contenedor principal */
 main {
@@ -113,6 +118,12 @@ h2 {
   font-size: 1.1rem;
 }
 
+
+.nav-link-btn:hover {
+  background-color: #dfe6ee;
+  color: #252b42;
+}
+
 /* Botones modernizados */
 .create-service-link,
 .toggle-btn,
@@ -126,6 +137,22 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+nav ul li form .nav-link {
+  all: unset; /* 🔥 Elimina todos los estilos del navegador */
+  color: #6b7280;
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+nav ul li form .nav-link:hover {
+  background-color: #dfe6ee;
+  color: #252b42;
 }
 
 .create-service-link {
