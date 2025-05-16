@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senilit - Plataforma Universitaria</title>
     
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <link
@@ -18,9 +18,23 @@
     <nav>
         <h1>Senilit</h1>
         <ul>
+
+            {% if user.is_authenticated %}
+            <p>Hola, {{ user.username }} | </p>
+            {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a> |
+            <a href="{% url 'signup' %}">Registrarse</a>
+            {% endif %}
+            
             <li><a href="/myapp/services">Servicios</a></li>
             <li><a href="/myapp/favorites">Favoritos</a></li>
-            <li><a href="/logout/">Cerrar sesión</a></li>
+  <li>
+  <form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="nav-link">Cerrar sesión</button>
+  </form>
+</li>
+            
         </ul>
     </nav>
     <main>
